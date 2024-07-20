@@ -1,0 +1,21 @@
+{
+  "name": "my-voice-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@google-cloud/speech": "^6.6.1",
+    "dotenv": "^16.4.5",
+    "formidable": "^3.5.1",
+    "multiparty": "^4.2.3",
+    "next": "14.2.5",
+    "next-connect": "^1.0.0",
+    "react": "^18",
+    "react-dom": "^18"
+  }
+}
