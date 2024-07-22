@@ -47,7 +47,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('https://4cb9-34-30-2-247.ngrok-free.app/start_interview', {
+      const response = await fetch('https://1441-34-27-240-208.ngrok-free.app/start_interview', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export default function Home() {
       const transcribeData = await transcribeResponse.json();
       logConversation('Candidate', transcribeData.transcription || 'Audio response submitted.');
 
-      const submitResponse = await fetch('https://4cb9-34-30-2-247.ngrok-free.app/submit_response', {
+      const submitResponse = await fetch('https://1441-34-27-240-208.ngrok-free.app/submit_response', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
