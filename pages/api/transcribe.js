@@ -1,11 +1,9 @@
 import multiparty from 'multiparty';
-import { SpeechClient } from '@google-cloud/speech';
+import axios from 'axios';
 import fs from 'fs';
-import path from 'path';
 import { promisify } from 'util';
 
-// Initialize the Google Cloud Speech-to-Text client
-const speechClient = new SpeechClient();
+const API_KEY = 'AIzaSyBYJ7Sa-fA3u_AvRAIofSaFukg7Ab3yuIk'; // Replace with your API key
 
 // Disable default body parser for this API route
 export const config = {
@@ -36,19 +34,27 @@ export default async function handler(req, res) {
       const fileBuffer = await readFile(file.path);
 
       // Transcribe the audio using Google Cloud Speech-to-Text
-      const [response] = await speechClient.recognize({
-        config: {
-          encoding: 'WEBM_OPUS',  // Adjust encoding based on your file type
-          sampleRateHertz: 48000, // Adjust sample rate based on your file
-          languageCode: 'en-US',
+      const response = await axios.post(
+        `https://speech.googleapis.com/v1p1beta1/speech:recognize?key=${API_KEY}`,
+        {
+          config: {
+            encoding: 'WEBM_OPUS',  // Adjust encoding based on your file type
+            sampleRateHertz: 48000, // Adjust sample rate based on your file
+            languageCode: 'en-US',
+          },
+          audio: {
+            content: fileBuffer.toString('base64'),  // Encode the file buffer to base64
+          },
         },
-        audio: {
-          content: fileBuffer.toString('base64'),  // Encode the file buffer to base64
-        },
-      });
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       // Extract the transcription
-      const transcription = response.results
+      const transcription = response.data.results
         .map(result => result.alternatives[0].transcript)
         .join('\n');
 
