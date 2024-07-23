@@ -47,7 +47,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('https://f296-16-16-24-159.ngrok-free.app/start_interview', {
+      const response = await fetch('http://16.16.24.159:8000/start_interview', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -145,7 +145,7 @@ export default function Home() {
       const transcribeData = await transcribeResponse.json();
       logConversation('Candidate', transcribeData.transcription || 'Audio response submitted.');
 
-      const submitResponse = await fetch('https://f296-16-16-24-159.ngrok-free.app/submit_response', {
+      const submitResponse = await fetch('http://16.16.24.159:8000/submit_response', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
